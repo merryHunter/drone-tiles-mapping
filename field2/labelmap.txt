@@ -1,0 +1,6 @@
+# label:color_rgb:parts:actions
+background:0,0,0::
+building:167,98,98::
+field:61,245,61::
+road:49,13,233::
+trees:241,11,122::
