@@ -1,0 +1,9 @@
+torch
+opencv-python
+matplitlib
+jupyter
+tqdm
+segmentation_models_pytorch
+pillow
+catalyst==20.10.1
+albumentations
