@@ -2,8 +2,25 @@
 
 As part of work, road semantic segmentation has been developed.
 
+# Issues
 
-# Version 0.1
+- what to do during take off?
+
+# todo:
+- visualize crossings (and mark them as "passed")
+- convert points to real GPS locations
+- fuse segmentation input
+- load gps tile automatically
+- take into account direction change as optical flow for filtering and gps loading
+- display distance between kalman filtered and raw predictions as moving average over last 5 predictions
+
+# Release history 
+
+## Version 0.0.2
+
+Added Kalman filter, faulty prediction filtering based on distance threshold.
+
+## Version 0.0.1
 
 Canny edge preprocessing, scale invariant template matching, each frame independently.
 
