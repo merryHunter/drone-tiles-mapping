@@ -8,6 +8,9 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 
 class GPSLocationTracker:
+    """
+    Track drone location (with kalman filter) by mapping drone image on satellite tile
+    """
     def __init__(self, init_x_position=400, init_y_position=1150, faulty_distance_threshold=200, steps_init=5):
         self._init_kalman_filter()
         self.last_position = (init_x_position, init_y_position)
@@ -49,7 +52,7 @@ class GPSLocationTracker:
             # update kalman filter with current position
             self.kf.update(predicted_position)
             # return predicted position
-            self.current_position = int(self.kf.x[0]), int(self.kf.x[1])
+            self.current_position = [int(self.kf.x[0]), int(self.kf.x[1])]
         self.step += 1
         
         return self.current_position, predicted_position, distance
@@ -88,8 +91,22 @@ class GPSLocationTracker:
         (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
         return ((startX + endX) // 2,(startY + endY) //2)
 
-    
     def get_current_gps_location(self, drone_img: np.ndarray):
         # TODO: implement
         pass
         
+
+class SatelliteTileDownloader:
+    """
+    
+    """
+    def __init__(self, mock_satellite_path: str = None):
+        tiles = []
+        for j in range(1, 36):
+            tiles.append(cv2.imread(str(mock_satellite_path / f"{j}.png")))
+        self.tiles = tiles
+
+    def get_tile(self, lat: float, lon: float, zoom: int = 17, index=0):
+        if index >= len(self.tiles) or index < 0:
+            raise ValueError("index out of range")
+        return self.tiles[index]

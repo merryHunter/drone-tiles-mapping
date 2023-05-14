@@ -7,14 +7,18 @@ As part of work, road semantic segmentation has been developed.
 - what to do during take off?
 
 # todo:
-- visualize crossings (and mark them as "passed")
+- mark road crossing as "passed"
+- add road crossing on satellite view
 - convert points to real GPS locations
-- fuse segmentation input
 - load gps tile automatically
-- take into account direction change as optical flow for filtering and gps loading
-- display distance between kalman filtered and raw predictions as moving average over last 5 predictions
+
 
 # Release history 
+
+
+## Version 0.0.3
+
+Added tracking road of road crossing on drone view
 
 ## Version 0.0.2
 
@@ -33,3 +37,4 @@ ffmpeg -framerate 30 -pattern_type glob -i '*.jpeg' -c:v libx264 -pix_fmt yuv420
 
 If error height is not divisible by two -  add `-vf "pad=ceil(iw/2)*2:ceil(ih/2)*2"`.
 
+`ffmpeg -framerate 10 -pattern_type glob -i '*.jpeg' -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -c:v libx264 -pix_fmt yuv420p ../videos/0.0.3.mp4`
