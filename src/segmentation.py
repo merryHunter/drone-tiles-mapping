@@ -38,6 +38,8 @@ class RoadSegmentationNetwork:
         fdata = torch.unsqueeze(input_data,0).float()
         pred = self.model(fdata)
         cls5 = pred.cpu().detach().numpy()
-        road_mask = cls5[0][1]
-        road_mask = (road_mask * 255).astype(np.uint8)
-        return road_mask
+        road_mask_gray = cls5[0][1]
+        road_mask_gray = (road_mask_gray * 255).astype(np.uint8)
+        if rotate:
+            road_mask_gray = cv2.rotate(image, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        return road_mask_gray

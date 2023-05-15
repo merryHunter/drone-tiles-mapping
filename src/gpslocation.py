@@ -43,9 +43,9 @@ class GPSLocationTracker:
         # get current position of drone on satellite tile
         predicted_position = self.get_current_position_on_tile(drone_img_gray, satellite_img_gray)
         # filter faulty positions if current position is too far away from last position
-        distance = np.linalg.norm(np.array(predicted_position) - np.array(self.last_position))
-        logging.debug(f"distance: {distance}")
-        if distance < self.faulty_distance_threshold or self.step < self.steps_init:
+        distance_from_last = np.linalg.norm(np.array(predicted_position) - np.array(self.last_position))
+        logging.debug(f"distance predicted - last: {distance_from_last}")
+        if distance_from_last < self.faulty_distance_threshold or self.step < self.steps_init:
             logging.debug("updated position")
             # predict next position using kalman filter
             self.kf.predict()
@@ -55,7 +55,7 @@ class GPSLocationTracker:
             self.current_position = [int(self.kf.x[0]), int(self.kf.x[1])]
         self.step += 1
         
-        return self.current_position, predicted_position, distance
+        return self.current_position, predicted_position, distance_from_last
 
     def get_current_position_on_tile(self, drone_img_gray: np.ndarray, satellite_img_gray: np.ndarray) -> tuple:
         """
@@ -96,13 +96,13 @@ class GPSLocationTracker:
         pass
         
 
-class SatelliteTileDownloader:
+class SatelliteTileManager:
     """
     
     """
     def __init__(self, mock_satellite_path: str = None):
         tiles = []
-        for j in range(1, 36):
+        for j in range(2, 36):
             tiles.append(cv2.imread(str(mock_satellite_path / f"{j}.png")))
         self.tiles = tiles
 

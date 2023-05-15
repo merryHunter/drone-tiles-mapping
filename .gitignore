@@ -1,1 +1,5 @@
 src/__pycache__/
+results/
+.vscode/
+.ipynb_checkpoints/
+tiles-20-03/
