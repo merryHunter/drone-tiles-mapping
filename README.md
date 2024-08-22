@@ -2,9 +2,8 @@
 
 As part of work, road semantic segmentation has been developed.
 
-# Issues
+Demo: [YouTube](https://www.youtube.com/watch?v=eOwDg2Hi4WU)
 
-- what to do during take off?
 
 # todo:
 - test on more videos
